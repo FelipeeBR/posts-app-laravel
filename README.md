@@ -1,16 +1,24 @@
-# API REST Laravel 
-Aplicado alguns conceitos basicos de TDD, implementado autenticação token via API com sanctum
+# 🚀 API REST em Laravel
+Este projeto é uma API REST desenvolvida em Laravel, com foco em boas práticas e aprendizado de TDD (Test Driven Development).
+Foi implementada autenticação baseada em tokens utilizando Laravel Sanctum
 
-## Testes com PHPUnit TDD
-- #### CRUD Users (UserTest)
-  - test_can_create_user()
-  - test_cannot_create_user_with_existing_email()
-  - test_cannot_create_user_with_invalid_name()
-  - test_cannot_create_user_with_invalid_email()
-  - test_cannot_create_user_with_invalid_password()
-  - test_can_update_user()
+## ⚙️ Funcionalidades
+- ✅ CRUD de usuários
+- ✅ Autenticação via token (Sanctum)
+- ✅ Testes automatizados com PHPUnit seguindo TDD
+
+## 🧪 Testes Implementados
+- #### 👤 Users (UserTest)
+  - ```test_can_create_user()``` – cria um usuário válido
+  - ```test_cannot_create_user_with_existing_email()``` – impede e-mail duplicado
+  - ```test_cannot_create_user_with_invalid_name()``` – valida nome inválido
+  - ```test_cannot_create_user_with_invalid_email()``` – valida e-mail inválido
+  - ```test_cannot_create_user_with_invalid_password()``` – valida senha inválida
+  - ```test_can_update_user()``` – atualiza um usuário existente
 - #### Auth (AuthTest)
-  - test_auth()
+  - ```test_auth()``` – autenticação com credenciais válidas
 
-
-
+## 📦 Tecnologias Utilizadas
+- Laravel 12
+- Sanctum (autenticação)
+- PHPUnit (testes)
