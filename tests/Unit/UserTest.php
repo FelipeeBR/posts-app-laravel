@@ -65,4 +65,18 @@ class UserTest extends TestCase
 
         $response->assertStatus(422);
     }
+
+    public function test_can_update_user(): void {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->putJson('/api/user/'. $user->id , [
+            'id' => $user->id,
+            'name' => 'John Doe',
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(200);
+    }
 }

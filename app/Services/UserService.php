@@ -24,4 +24,9 @@ class UserService
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function update(array $data, User $user): User {
+        $user->update($data);
+        return $user;
+    }
 }

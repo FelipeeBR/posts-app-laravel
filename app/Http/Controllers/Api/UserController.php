@@ -26,4 +26,13 @@ class UserController extends Controller
     public function index() {
         return UserResource::collection(User::all());
     }
+
+    public function update(UserRequest $request, User $user, UserService $userService) {
+        try {
+            $userService->update($request->all(), $user);
+            return response()->json(['data' => new UserResource($user), 'message' => 'Usuario atualizado com sucesso'], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
 }
