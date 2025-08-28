@@ -1,4 +1,5 @@
 # API REST Laravel 
+Aplicado alguns conceitos basicos de TDD, implementado autenticação token via API com sanctum
 
 ## Testes com PHPUnit TDD
 - #### CRUD Users (UserTest)
