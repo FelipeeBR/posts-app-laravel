@@ -36,8 +36,8 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(User $user) {
-        $user->delete();
+    public function destroy(User $user, UserService $userService) {
+        $userService->delete($user);
         return response()->json(['message' => 'Usuario deletado com sucesso'], Response::HTTP_OK);
     }
 }

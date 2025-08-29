@@ -7,35 +7,28 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\PostRequest;
+use App\Services\PostService;
+use App\Http\Resources\PostResource;
 
 class PostsController extends Controller
 {
-    public function store(Request $resquest) {
+    public function store(PostRequest $request, PostService $postService) {
         try {
-            $post = Post::create($resquest->all());
+            $post = $postService->create($request->all());
             return response()->json([
-                'data' => [
-                    'id' => $post->id, 
-                    'title' => $post->title, 
-                    'body' => $post->body, 
-                    'user_id' => $post->user_id
-                ], 'message' => 'Post criado com sucesso'], Response::HTTP_CREATED);
+                'data' => new PostResource($post), 'message' => 'Post criado com sucesso'], Response::HTTP_CREATED);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         
     }
 
-    public function update(Request $resquest, Post $post) {
+    public function update(PostRequest $request, Post $post, PostService $postService) {
         try {
-            $post->update($resquest->all());
+            $postService->update($request->all(), $post);
             return response()->json([
-                'data' => [
-                    'id' => $post->id, 
-                    'title' => $post->title, 
-                    'body' => $post->body, 
-                    'user_id' => $post->user_id
-                ], 'message' => 'Post atualizado com sucesso'], Response::HTTP_OK);
+                'data' => new PostResource($post), 'message' => 'Post atualizado com sucesso'], Response::HTTP_OK);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -51,8 +44,8 @@ class PostsController extends Controller
         return response()->json(['data' => $post], Response::HTTP_OK);
     }
 
-    public function delete(Post $post) {
-        $post->delete();
+    public function delete(Post $post, PostService $postService) {
+        $postService->delete($post);
         return response()->json(['message' => 'Post deletado com sucesso'], Response::HTTP_OK);
     }
 }
