@@ -24,7 +24,8 @@ class PostRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'body' => 'required|string',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'tags' => 'nullable|array'
         ];
     }
 }

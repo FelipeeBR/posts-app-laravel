@@ -15,9 +15,10 @@ class PostsController extends Controller
 {
     public function store(PostRequest $request, PostService $postService) {
         try {
-            $post = $postService->create($request->all());
+            $post = $postService->create($request->validated());
+
             return response()->json([
-                'data' => new PostResource($post), 'message' => 'Post criado com sucesso'], Response::HTTP_CREATED);
+                'data' => new PostResource($post->load('tags')), 'message' => 'Post criado com sucesso'], Response::HTTP_CREATED);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
@@ -28,7 +29,7 @@ class PostsController extends Controller
         try {
             $postService->update($request->all(), $post);
             return response()->json([
-                'data' => new PostResource($post), 'message' => 'Post atualizado com sucesso'], Response::HTTP_OK);
+                'data' => new PostResource($post->load('tags')), 'message' => 'Post atualizado com sucesso'], Response::HTTP_OK);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }

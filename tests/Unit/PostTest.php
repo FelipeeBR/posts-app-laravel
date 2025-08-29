@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,14 +14,15 @@ class PostTest extends TestCase
 
     public function test_can_create_post(): void {
         $user = User::factory()->create();
+        $tags = Tag::factory()->create();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->postJson('/api/post', [
             'title' => 'Test Post',
             'body' => 'This is a test post.',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'tags' => [$tags->id]
         ]);
-
         $response->assertStatus(201)->assertJsonStructure(['data' => ['id', 'title', 'body', 'user_id'], 'message']);
     }
 
@@ -38,6 +40,7 @@ class PostTest extends TestCase
 
     public function test_can_update_post(): void {
         $user = User::factory()->create();
+        $tags = Tag::factory()->create();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $post = Post::factory()->create([
@@ -48,7 +51,8 @@ class PostTest extends TestCase
             'id' => $post->id,
             'title' => 'Updated Post',
             'body' => 'This is an updated post.',
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'tags' => [$tags->id]
         ]);
 
         $response->assertStatus(200);

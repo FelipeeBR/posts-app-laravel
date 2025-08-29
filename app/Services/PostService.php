@@ -19,7 +19,14 @@ class PostService
             throw new \Exception('Existe um post com esse titulo');
         }
 
-        return Post::create($data);
+        $post = Post::create([
+            'title'   => $data['title'],
+            'body'    => $data['body'],
+            'user_id' => $data['user_id'],
+        ]);
+
+        $post->tags()->sync($data['tags']);
+        return $post;
     }
 
     public function update(array $data, Post $post): Post {
