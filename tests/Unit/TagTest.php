@@ -67,4 +67,20 @@ class TagTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_cannot_create_tag_with_existing_slug(): void {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        Tag::factory()->create([
+            'slug' => 'test-tag',
+        ]);
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->postJson('/api/tag', [
+            'name' => 'Test Tag',
+            'slug' => 'test-tag',
+        ]);
+
+        $response->assertStatus(422);
+    }
 }
