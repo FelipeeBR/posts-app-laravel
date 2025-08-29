@@ -22,4 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/post/{post}', [PostsController::class, 'delete']);
 
     Route::post('/tag', [TagController::class, 'store']);
+    Route::put('/tag/{tag}', [TagController::class, 'update']);
+    Route::delete('/tag/{tag}', [TagController::class, 'destroy']);
+    Route::get('/tag/{tag}', [TagController::class, 'view']);
+    Route::get('/tag', [TagController::class, 'index']);
 });
