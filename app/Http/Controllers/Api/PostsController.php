@@ -50,4 +50,9 @@ class PostsController extends Controller
     public function view(Post $post) {
         return response()->json(['data' => $post], Response::HTTP_OK);
     }
+
+    public function delete(Post $post) {
+        $post->delete();
+        return response()->json(['message' => 'Post deletado com sucesso'], Response::HTTP_OK);
+    }
 }

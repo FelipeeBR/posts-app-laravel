@@ -79,4 +79,17 @@ class PostTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_can_delete_post(): void {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $post = Post::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->deleteJson('/api/post/'. $post->id);
+
+        $response->assertStatus(200);
+    }
 }
