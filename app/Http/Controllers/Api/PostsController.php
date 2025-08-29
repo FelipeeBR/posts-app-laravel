@@ -41,4 +41,13 @@ class PostsController extends Controller
         }
         
     }
+
+    public function index() {
+        $posts = Post::all();
+        return response()->json(['data' => $posts], Response::HTTP_OK);
+    }
+
+    public function view(Post $post) {
+        return response()->json(['data' => $post], Response::HTTP_OK);
+    }
 }
