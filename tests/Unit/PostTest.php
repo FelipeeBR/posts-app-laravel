@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Post;
 use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,5 +34,23 @@ class PostTest extends TestCase
         ]);
 
         $response->assertStatus(422);
+    }
+
+    public function test_can_update_post(): void {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $post = Post::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->putJson('/api/post/'. $post->id , [
+            'id' => $post->id,
+            'title' => 'Updated Post',
+            'body' => 'This is an updated post.',
+            'user_id' => $user->id
+        ]);
+
+        $response->assertStatus(200);
     }
 }
