@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostsController;
+use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/post/{post}', [PostsController::class, 'view']);
     Route::get('/post', [PostsController::class, 'index']);
     Route::delete('/post/{post}', [PostsController::class, 'delete']);
+
+    Route::post('/tag', [TagController::class, 'store']);
 });
