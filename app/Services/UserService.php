@@ -29,4 +29,9 @@ class UserService
         $user->update($data);
         return $user;
     }
+
+    public function delete(User $user): User {
+        $user->delete();
+        return $user;
+    }
 }

@@ -79,4 +79,13 @@ class UserTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_can_delete_user(): void {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])->deleteJson('/api/user/'. $user->id);
+
+        $response->assertStatus(200);
+    }
 }

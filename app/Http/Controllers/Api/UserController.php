@@ -35,4 +35,9 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
+
+    public function destroy(User $user) {
+        $user->delete();
+        return response()->json(['message' => 'Usuario deletado com sucesso'], Response::HTTP_OK);
+    }
 }
