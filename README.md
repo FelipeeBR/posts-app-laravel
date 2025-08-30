@@ -1,4 +1,4 @@
-# 🚀 API REST em Laravel TDD - PHPUnit
+# 🚀 API REST em Laravel com TDD - PHPUnit
 Este projeto é uma API REST desenvolvida em Laravel, com foco em boas práticas e aprendizado de TDD (Test Driven Development).
 Foi implementada autenticação baseada em tokens utilizando Laravel Sanctum
 
